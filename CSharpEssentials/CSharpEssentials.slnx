@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="../CSharpEssentials_Albert/CSharpEssentials_Albert.csproj" Id="b0fbeec5-2fa7-4a48-b59d-19849a5e9fbf" />
+  <Project Path="../MoneyTesting/MoneyTesting.csproj" Id="5ab8be1a-e425-476f-aa82-95673cc2a023" />
   <Project Path="CSharpEssentials.csproj" />
 </Solution>
