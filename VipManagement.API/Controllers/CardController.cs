@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using VipManagement.Domain.Cards.Entities;
 using VipManagement.Persistence;
 using VipManagement.Application.Cards.DTOs;
+using VipManagement.Application.Cards.Commands;
+using MediatR;
 
 namespace VipManagement.API.Controllers
 {
@@ -32,14 +34,13 @@ namespace VipManagement.API.Controllers
 
 
 
-        [HttpPost]
-        public async Task<ActionResult> Create(CreateCardInputDto dto)
+        [HttpPost("createCard")]
+        public async Task<ActionResult> Create([FromBody]CreateCardInputDto dto)
         {
-            var card = new Card(dto.Number, dto.Name, dto.ExpirationDate);
+            var cmd = (CreateCardCommand)dto;
 
-            _context.Cards.Add(card);
-            await _context.SaveChangesAsync();
-            return Ok(card);
+            var result = await Mediator.Send(cmd);
+            return Ok(result);
         }
 
         [HttpDelete]

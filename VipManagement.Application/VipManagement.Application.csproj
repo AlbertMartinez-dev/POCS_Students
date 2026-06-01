@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cards\Commands\" />
     <Folder Include="Cards\Queries\" />
   </ItemGroup>
 
