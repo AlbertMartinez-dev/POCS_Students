@@ -1,5 +1,17 @@
 <Solution>
-  <Project Path="../CSharpEssentials_Albert/CSharpEssentials_Albert.csproj" Id="b0fbeec5-2fa7-4a48-b59d-19849a5e9fbf" />
-  <Project Path="../MoneyTesting/MoneyTesting.csproj" Id="5ab8be1a-e425-476f-aa82-95673cc2a023" />
-  <Project Path="CSharpEssentials.csproj" />
+  <Folder Name="/04_CSharpEssentials_Albert/">
+    <Project Path="../CSharpEssentials_Albert/CSharpEssentials_Albert.csproj" Id="b0fbeec5-2fa7-4a48-b59d-19849a5e9fbf" />
+    <Project Path="../MoneyTesting/MoneyTesting.csproj" Id="5ab8be1a-e425-476f-aa82-95673cc2a023" />
+    <Project Path="CSharpEssentials.csproj" />
+  </Folder>
+  <Folder Name="/05_DomainLayer_Albert/" />
+  <Folder Name="/05_DomainLayer_Albert/00-Kernel/">
+    <Project Path="../Kernel.Domain/Kernel.Domain.csproj" Id="a60add13-d94c-490b-80e4-af8b84f1fa86" />
+  </Folder>
+  <Folder Name="/05_DomainLayer_Albert/01-VipManagement/">
+    <Project Path="../VipManagement.API/VipManagement.API.csproj" Id="43d6b2ba-6174-4f7f-9f4c-e3e36804b4be" />
+    <Project Path="../VipManagement.Application/VipManagement.Application.csproj" Id="c24f118a-3052-4f4a-a631-77d5d72c929a" />
+    <Project Path="../VipManagement.Domain/VipManagement.Domain.csproj" Id="dccc9a15-54e7-43b8-a3b7-021c06d9fd06" />
+    <Project Path="../VipManagement.Persistence/VipManagement.Persistence.csproj" Id="477c4aac-782d-4f81-8769-b0f0e4b0501b" />
+  </Folder>
 </Solution>

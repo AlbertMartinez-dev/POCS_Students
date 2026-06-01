@@ -1,0 +1,6 @@
+@VipManagement.API_HostAddress = http://localhost:5178
+
+GET {{VipManagement.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
