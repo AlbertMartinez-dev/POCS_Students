@@ -1,10 +1,16 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace VipManagement.Application.Cards.Commands
 {
-    public record CreateCardCommand(Guid IdempotencyKey)
+
+
+
+
+
+    public record CreateCardCommand(Guid IdempotencyKey): IRequest<int>
     {
        
 

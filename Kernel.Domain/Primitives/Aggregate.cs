@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
+using MediatR;
 
 namespace Kernel.Domain.Primitives
 {
     public abstract class Aggregate<TId> where TId: notnull
     {
-
-
+        // Llista de domainevents
+        private readonly List<INotification> _domainEvents = new();
         public TId Id { get; private set; }
 
         // Entity Framework
@@ -19,7 +20,18 @@ namespace Kernel.Domain.Primitives
             Id = id;
         }
 
-      
+
+        protected void AddDomainEvent(INotification domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
+        }
+
+
 
         // Comprovació de si aquest objecte es un aggregate o no
         public override bool Equals(object? obj)

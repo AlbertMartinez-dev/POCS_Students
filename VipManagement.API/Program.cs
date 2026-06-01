@@ -1,4 +1,6 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using VipManagement.Application.Cards.Commands;
 using VipManagement.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,10 @@ builder.Services.AddDbContext<VipManagementDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
+
+// ✅ MediatR - escaneja VipManagement.Application
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(CreateCardCommandHandler).Assembly));
 
 // ✅ Swagger
 builder.Services.AddEndpointsApiExplorer();
