@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ErrorOr;
 
 namespace VipManagement.Application.Cards.Commands
 {
@@ -10,7 +11,7 @@ namespace VipManagement.Application.Cards.Commands
 
 
 
-    public record CreateCardCommand(Guid IdempotencyKey): IRequest<int>
+    public record CreateCardCommand(Guid IdempotencyKey): IRequest<ErrorOr<int>>
     {
        
 

@@ -9,8 +9,8 @@ namespace VipManagement.Application.Cards.DTOs
     public class CreateCardInputDto
     {
         public Guid IdempotencyKey { get; set; }
-        public string Number { get; set; }
-        public string Name { get; set; }
+        public string? Number { get; set; }
+        public string? Name { get; set; }
         public DateTime ExpirationDate { get; set; }
 
 

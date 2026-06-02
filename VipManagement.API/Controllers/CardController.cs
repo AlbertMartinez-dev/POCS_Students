@@ -5,7 +5,8 @@ using VipManagement.Persistence;
 using VipManagement.Application.Cards.DTOs;
 using VipManagement.Application.Cards.Commands;
 using MediatR;
-
+using ErrorOr;
+using Microsoft.IdentityModel.Tokens.Experimental;
 namespace VipManagement.API.Controllers
 {
     [ApiController]
@@ -28,15 +29,49 @@ namespace VipManagement.API.Controllers
             return Ok(cards);
         }
 
+
+       
+
         [HttpPost("createCard")]
-        public async Task<ActionResult> Create([FromBody] CreateCardInputDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateCardInputDto dto)
         {
             var cmd = (CreateCardCommand)dto;
 
             var result = await _mediator.Send(cmd);
 
-            return Ok(result);
+            return result.Match<IActionResult>(
+                success => Ok(success),
+                errors =>
+                {
+                    if (errors.Any(error => error.Type == ErrorType.Validation))
+                    {
+                        return BadRequest(errors);
+                    }
+
+                    if (errors.Any(error => error.Type == ErrorType.NotFound))
+                    {
+                        return NotFound(errors);
+                    }
+
+                    if (errors.Any(error => error.Type == ErrorType.Conflict))
+                    {
+                        return Conflict(errors);
+                    }
+
+                    if (errors.Any(error => error.Type == ErrorType.Unexpected))
+                    {
+                        return Problem(
+                            detail: errors[0].Description,
+                            statusCode: StatusCodes.Status500InternalServerError
+                        );
+                    }
+
+                    return BadRequest(errors);
+                }
+            );
         }
+
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
