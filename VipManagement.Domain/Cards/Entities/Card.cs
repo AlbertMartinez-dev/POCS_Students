@@ -1,10 +1,20 @@
 ﻿using ErrorOr;
 using Kernel.Domain.Primitives;
+using Kernel.Domain.Primitives.ActionTracker;
 
 namespace VipManagement.Domain.Cards.Entities
 {
     public class Card : Aggregate<CardId>
     {
+        
+
+        public string Number { get; set; }
+        public string Name { get; set; }
+        public DateTime ExpirationDate { get;  set; }
+
+        public Guid? HistoryActionId { get; set ; }
+        public const string HistoryTypeSelector = "VipManagement.Card";
+
         private Card()
         {
         }
@@ -14,16 +24,16 @@ namespace VipManagement.Domain.Cards.Entities
             Number = number;
             Name = name;
             ExpirationDate = expirationDate;
-        }
+            HistoryActionId = Guid.NewGuid();
 
-        public string Number { get; private set; }
-        public string Name { get; private set; }
-        public DateTime ExpirationDate { get; private set; }
+
+        }
 
         public static ErrorOr<Card> CreateCard(
             string number,
             string name,
-            DateTime expirationDate)
+            DateTime expirationDate
+            )
         {
             var errors = new List<Error>();
 
@@ -53,7 +63,18 @@ namespace VipManagement.Domain.Cards.Entities
                 return errors;
             }
 
-            var card = new Card(number, name, expirationDate);
+            var card = new Card(number,
+                name,
+                expirationDate
+                );
+
+
+            card.AddAction(new ParentActionTracker(
+                    type: HistoryTypeSelector,
+                    domain: CardActionTracker.CardCreated,
+                    historyId: card.HistoryActionId
+                ));
+
 
             return card;
         }

@@ -1,46 +1,78 @@
-﻿using System;
+﻿using Kernel.Domain.Primitives.ActionTracker;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
-using MediatR;
 
 namespace Kernel.Domain.Primitives
 {
-    public abstract class Aggregate<TId> where TId: notnull
+
+
+    public abstract class Aggregate<TId> where TId : notnull
     {
-        // Llista de domainevents
-        private readonly List<INotification> _domainEvents = new();
+        private readonly List<IActionTracker> _actions = new();
+
         public TId Id { get; private set; }
 
-        // Entity Framework
-        protected Aggregate() { }
+        protected Aggregate()
+        {
+        }
 
         protected Aggregate(TId id)
         {
             Id = id;
         }
 
-
-        protected void AddDomainEvent(INotification domainEvent)
+        protected void AddAction(IActionTracker actionTracker)
         {
-            _domainEvents.Add(domainEvent);
+            _actions.Add(actionTracker);
         }
 
-        public void ClearDomainEvents()
+        public ICollection<IActionTracker> GetActions()
         {
-            _domainEvents.Clear();
+            return _actions.ToList();
         }
 
+        public IActionTracker? GetCurrentHistoryVersion()
+        {
+            return _actions
+                .OfType<ParentActionTracker>()
+                .LastOrDefault();
+        }
 
+        public bool HasCurrentHistoryVersion()
+        {
+            return _actions
+                .OfType<ParentActionTracker>()
+                .Any();
+        }
 
-        // Comprovació de si aquest objecte es un aggregate o no
+        public void ClearActions()
+        {
+            _actions.Clear();
+        }
+
+        public object GetId()
+        {
+            return Id;
+        }
+
         public override bool Equals(object? obj)
         {
-            if (obj is not Aggregate<TId> other) return false;
+            if (obj is not Aggregate<TId> other)
+            {
+                return false;
+            }
+
             return Id.Equals(other.Id);
         }
-        // Un hash code és un número enter que .NET calcula a partir d’un objecte per poder trobar-lo i comparar-lo més ràpidament en col·leccions com HashSet o Dictionary.
-        public override int GetHashCode() => Id.GetHashCode();
 
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
+
+
 }

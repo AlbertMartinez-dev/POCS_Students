@@ -14,4 +14,5 @@
     <Project Path="../VipManagement.Domain/VipManagement.Domain.csproj" Id="dccc9a15-54e7-43b8-a3b7-021c06d9fd06" />
     <Project Path="../VipManagement.Persistence/VipManagement.Persistence.csproj" Id="477c4aac-782d-4f81-8769-b0f0e4b0501b" />
   </Folder>
+  <Folder Name="/05_DomainLayer_Albert/10-History/" />
 </Solution>
