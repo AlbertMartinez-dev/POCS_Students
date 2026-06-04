@@ -1,15 +1,12 @@
 ﻿using Kernel.Domain.Primitives.ActionTracker;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Text;
+
+
 
 namespace Kernel.Domain.Primitives
 {
 
 
-    public abstract class Aggregate<TId> where TId : notnull
+    public abstract class Aggregate<TId> : IEntity  where TId : notnull 
     {
         private readonly List<IActionTracker> _actions = new();
 

@@ -15,19 +15,23 @@ namespace Kernel.Domain.Primitives.ActionTracker
 
         public Guid? HistoryId { get;  }
 
-        public object Entity { get; }
+        private readonly IEntity _entity;
+
+
+
 
 
         public ParentActionTracker(
                     string type,
                     string domain,
-                    Guid? historyId
+                    Guid? historyId,
+                    IEntity entity
                     )
         {
             Type = type;
             Domain = domain;
             HistoryId = historyId;
-           
+            _entity = entity;
             CreatedOn = DateTime.UtcNow;
         }
 

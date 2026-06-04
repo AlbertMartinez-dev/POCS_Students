@@ -15,13 +15,13 @@ namespace Kernel.Domain.Primitives
 
         bool HasCurrentHistoryVersion();
 
-        bool HasOnlyHistoryDetails();
+        //bool HasOnlyHistoryDetails();
 
-        List<IActionTracker> GetChildActions();
+        //List<IActionTracker> GetChildActions();
 
         void ClearActions();
 
-        void ClearHistoryVersion();
+        //void ClearHistoryVersion();
 
         object GetId();
     }

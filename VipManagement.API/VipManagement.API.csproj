@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="14.1.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8">
@@ -24,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\History.Persistance\History.Persistance.csproj" />
     <ProjectReference Include="..\VipManagement.Application\VipManagement.Application.csproj" />
     <ProjectReference Include="..\VipManagement.Domain\VipManagement.Domain.csproj" />
     <ProjectReference Include="..\VipManagement.Persistence\VipManagement.Persistence.csproj" />

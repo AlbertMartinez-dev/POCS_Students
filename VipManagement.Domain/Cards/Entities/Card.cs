@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Kernel.Domain.Primitives;
 using Kernel.Domain.Primitives.ActionTracker;
+using VipManagement.Domain.Cards;
 
 namespace VipManagement.Domain.Cards.Entities
 {
@@ -69,10 +70,13 @@ namespace VipManagement.Domain.Cards.Entities
                 );
 
 
+
+            // Crear card per a history
             card.AddAction(new ParentActionTracker(
                     type: HistoryTypeSelector,
                     domain: CardActionTracker.CardCreated,
-                    historyId: card.HistoryActionId
+                    historyId: card.HistoryActionId,
+                    entity: card
                 ));
 
 
