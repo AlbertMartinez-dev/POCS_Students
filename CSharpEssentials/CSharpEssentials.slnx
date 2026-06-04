@@ -14,10 +14,16 @@
     <Project Path="../VipManagement.Domain/VipManagement.Domain.csproj" Id="dccc9a15-54e7-43b8-a3b7-021c06d9fd06" />
     <Project Path="../VipManagement.Persistence/VipManagement.Persistence.csproj" Id="477c4aac-782d-4f81-8769-b0f0e4b0501b" />
   </Folder>
+  <Folder Name="/05_DomainLayer_Albert/02-Reservation/">
+    <Project Path="../Reservation.API/Reservation.API.csproj" Id="75c9da11-2cc4-40f2-81b8-bd11f8731356" />
+    <Project Path="../Reservation.Application/Reservation.Application.csproj" Id="72dadb10-921e-4d86-adc9-a8b825a766dd" />
+    <Project Path="../Reservation.Domain/Reservation.Domain.csproj" Id="93ff2a3a-e291-43c3-bc7b-03c1a9eebdf4" />
+    <Project Path="../Reservation.Persistence/Reservation.Persistence.csproj" Id="583def32-a50d-491b-8260-b037e1c6ae28" />
+  </Folder>
   <Folder Name="/05_DomainLayer_Albert/10-History/">
     <Project Path="../History.API/History.API.csproj" Id="bfe8046a-7574-4e57-994b-81fb6bfc61bc" />
     <Project Path="../History.Application/History.Application.csproj" Id="2d59f3e4-f89a-49f5-baab-29ffd5525f94" />
     <Project Path="../History.Domain/History.Domain.csproj" Id="385d8fe7-0869-4da2-a965-3b4d07efe922" />
-    <Project Path="../History.Persistance/History.Persistance.csproj" Id="0d444ed2-172f-4cb9-9003-e395ff8a9578" />
+    <Project Path="../History.Persistance/History.Persistence.csproj" Id="0d444ed2-172f-4cb9-9003-e395ff8a9578" />
   </Folder>
 </Solution>

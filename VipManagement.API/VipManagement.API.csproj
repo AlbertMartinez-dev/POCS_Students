@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\History.Persistance\History.Persistance.csproj" />
+    <ProjectReference Include="..\History.Persistance\History.Persistence.csproj" />
     <ProjectReference Include="..\VipManagement.Application\VipManagement.Application.csproj" />
     <ProjectReference Include="..\VipManagement.Domain\VipManagement.Domain.csproj" />
     <ProjectReference Include="..\VipManagement.Persistence\VipManagement.Persistence.csproj" />
