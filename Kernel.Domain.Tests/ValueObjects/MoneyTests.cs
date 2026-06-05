@@ -12,6 +12,8 @@ namespace Kernel.Domain.Tests.ValueObjects
     public class MoneyTests
     {
         [Fact]
+
+        // si tot va be
         public void Create_WithValidData_ReturnsMoney()
         {
             // Arrange
@@ -28,6 +30,8 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+
+        // minuscula
         public void Create_WithLowercaseCurrency_NormalizesCurrencyCode()
         {
             // Arrange
@@ -43,6 +47,7 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+        // majusucla
         public void Create_WithCurrencyWithSpaces_NormalizesCurrencyCode()
         {
             // Arrange
@@ -58,6 +63,7 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+        // si amount es negatiu
         public void Create_WithNegativeAmount_ReturnsValidationError()
         {
             // Arrange
@@ -73,6 +79,7 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+        // currency code mes petit de 3
         public void Create_WithCurrencyCodeShorterThanThreeLetters_ReturnsValidationError()
         {
             // Arrange
@@ -88,6 +95,7 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+        // currency code mes gran de 3 
         public void Create_WithCurrencyCodeLongerThanThreeLetters_ReturnsValidationError()
         {
             // Arrange
@@ -103,6 +111,8 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+
+        // Add si tot va be 
         public void Add_WithSameCurrency_ReturnsSum()
         {
             // Arrange
@@ -119,6 +129,8 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+
+        // Add si diferent currency code
         public void Add_WithDifferentCurrency_ReturnsConflictError()
         {
             // Arrange
@@ -134,6 +146,7 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+        // Comprovar dos instances amb mateixos valors son iguals
         public void Money_WithSameValues_AreEqual()
         {
             // Arrange
@@ -145,6 +158,7 @@ namespace Kernel.Domain.Tests.ValueObjects
         }
 
         [Fact]
+        // Compprovar dos instances amb mateixos valors pero diferent minuscula majuscula currensy son iguals
         public void Money_WithSameValuesButDifferentCurrencyCasing_AreEqual()
         {
             // Arrange

@@ -1,6 +1,6 @@
 ﻿namespace Reservation.Persistence
 {
-    public class Room : Aggregat
+    public class Room
     {
 
     }
