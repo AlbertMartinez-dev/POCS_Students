@@ -26,4 +26,7 @@
     <Project Path="../History.Domain/History.Domain.csproj" Id="385d8fe7-0869-4da2-a965-3b4d07efe922" />
     <Project Path="../History.Persistance/History.Persistence.csproj" Id="0d444ed2-172f-4cb9-9003-e395ff8a9578" />
   </Folder>
+  <Folder Name="/05_DomainLayer_Albert/Testing/">
+    <Project Path="../Kernel.Domain.Tests/Kernel.Domain.Tests.csproj" Id="7e91a91d-b75e-4c89-9fa5-fa26624e52da" />
+  </Folder>
 </Solution>

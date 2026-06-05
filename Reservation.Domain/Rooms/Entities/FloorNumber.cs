@@ -7,14 +7,14 @@ namespace Reservation.Domain.Rooms.Entities
 {
     public sealed record FloorNumber
     {
-        public int Number { get; }
+        public int? Number { get; }
 
-        private FloorNumber(int number)
+        private FloorNumber(int? number)
         {
             Number = number;
         }
 
-        public static ErrorOr<FloorNumber> Create(int number)
+        public static ErrorOr<FloorNumber> Create(int? number)
         {
 
 
@@ -25,6 +25,17 @@ namespace Reservation.Domain.Rooms.Entities
                     description: "Floor Number must be between 1 and 50");
 
             }
+
+
+            if (number is null)
+            {
+                return Error.Validation(
+                    code: "FloorNumber.Invalid",
+                    description: "Floor Number can't be null.");
+            }
+
+
+            return new FloorNumber(number);
 
 
             

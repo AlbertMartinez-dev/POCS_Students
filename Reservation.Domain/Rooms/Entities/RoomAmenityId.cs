@@ -6,7 +6,8 @@ using Kernel.Domain.Primitives;
 
 namespace Reservation.Domain.Rooms.Entities
 {
-    public record RoomAmenityId (int Value) : IValue<int>
+    public record 
+        RoomAmenityId (int Value) : IValue<int>
     {
         public static implicit operator int(RoomAmenityId self) => self.Value;
 
