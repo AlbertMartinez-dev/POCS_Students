@@ -1,38 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using ErrorOr;
+﻿using ErrorOr;
 
 namespace Kernel.Domain.Entities
 {
-    public record EmailAddress
+    public sealed record EmailAddress
     {
-        public String Value { get; }
+        public string Value { get; }
 
-
-        private EmailAddress(String value)
+        private EmailAddress(string value)
         {
             Value = value;
         }
 
-
-
-        public ErrorOr<EmailAddress> Create(string  value)
+        public static ErrorOr<EmailAddress> Create(string? value)
         {
-
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrWhiteSpace(value))
             {
-                Error.Validation(
-                   code: "EmailAddess.Validation",
-                   description: "Email Address can't be null"
-                   );
-
+                return Error.Validation(
+                    code: "EmailAddress.Validation",
+                    description: "Email Address can't be null or empty"
+                );
             }
-           
 
-
-            var normalizedEmail = value.ToLower().Trim();
+            var normalizedEmail = value.Trim().ToLowerInvariant();
 
             bool foundAt = false;
             bool foundDotAfterAt = false;
@@ -44,29 +33,28 @@ namespace Kernel.Domain.Entities
                     foundAt = true;
                     continue;
                 }
+
                 if (foundAt && character == '.')
                 {
                     foundDotAfterAt = true;
                 }
-
-
-                if (!foundAt)
-                {
-                    return Error.Validation(
-                    code: "EmailAddress.Validation",
-                    description: "Email Adddress must contain @"
-                    );
-                }
-
-                if (!foundDotAfterAt)
-                {
-                    return Error.Validation(
-                        code: "EmailAddress.Validation",
-                        description: "Email Address must contain a dot after @");
-                }
-
             }
 
+            if (!foundAt)
+            {
+                return Error.Validation(
+                    code: "EmailAddress.Validation",
+                    description: "Email Address must contain @"
+                );
+            }
+
+            if (!foundDotAfterAt)
+            {
+                return Error.Validation(
+                    code: "EmailAddress.Validation",
+                    description: "Email Address must contain a dot after @"
+                );
+            }
 
             return new EmailAddress(normalizedEmail);
         }
@@ -75,7 +63,5 @@ namespace Kernel.Domain.Entities
         {
             return Value;
         }
-
-
     }
 }

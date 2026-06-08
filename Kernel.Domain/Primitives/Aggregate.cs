@@ -1,14 +1,12 @@
 ﻿using Kernel.Domain.Primitives.ActionTracker;
-
-
+using MediatR;
 
 namespace Kernel.Domain.Primitives
 {
-
-
-    public abstract class Aggregate<TId> : IEntity  where TId : notnull 
+    public abstract class Aggregate<TId> : IEntity where TId : notnull
     {
         private readonly List<IActionTracker> _actions = new();
+        private readonly List<INotification> _domainEvents = new();
 
         public TId Id { get; private set; }
 
@@ -20,6 +18,10 @@ namespace Kernel.Domain.Primitives
         {
             Id = id;
         }
+
+        // -------------------------
+        // History Actions
+        // -------------------------
 
         protected void AddAction(IActionTracker actionTracker)
         {
@@ -50,6 +52,29 @@ namespace Kernel.Domain.Primitives
             _actions.Clear();
         }
 
+        // -------------------------
+        // Domain Events
+        // -------------------------
+
+        protected void PushEvent(INotification domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+        public IReadOnlyCollection<INotification> GetDomainEvents()
+        {
+            return _domainEvents.AsReadOnly();
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
+        }
+
+        // -------------------------
+        // Generic Id
+        // -------------------------
+
         public object GetId()
         {
             return Id;
@@ -70,6 +95,4 @@ namespace Kernel.Domain.Primitives
             return Id.GetHashCode();
         }
     }
-
-
 }

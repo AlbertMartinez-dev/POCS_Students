@@ -33,7 +33,7 @@ namespace Kernel.Domain.Entities
           
 
 
-            if (normalizedEnd  < normalizedStart) 
+            if (normalizedEnd  <= normalizedStart) 
                 {
                     return Error.Conflict(
                         code: "DateRange.Conflict",
@@ -50,7 +50,7 @@ namespace Kernel.Domain.Entities
         public bool Overlaps(DateRange other)
         {
 
-            return Start < other.End && End < other.Start;
+            return Start < other.End && End > other.Start;
         }
         
         

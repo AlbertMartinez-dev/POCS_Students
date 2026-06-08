@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ErrorOr;
 using Kernel.Domain.Primitives;
+using Reservation.Domain.Rooms.DomainEvents;
 
 
 namespace Reservation.Domain.Rooms.Entities
@@ -14,6 +15,11 @@ namespace Reservation.Domain.Rooms.Entities
         public RoomType RoomType { get; private set; }
 
         public FloorNumber FloorNumber { get; private set; }
+
+        public bool MaintenanceRequested { get; private set; }
+
+        public string? MaintenanceReason { get; private set; }
+
 
         public IReadOnlyCollection<RoomAmenity> Amenities => _amenities.AsReadOnly();
 
@@ -67,6 +73,35 @@ namespace Reservation.Domain.Rooms.Entities
             _amenities.Add(amenity);
 
             return Result.Success;
+        }
+
+
+
+        public ErrorOr<Success> RequestMaintenance(string? reason)
+        {
+            
+
+            if (string.IsNullOrEmpty(reason)){
+
+                return Error.Validation(
+                    code: "RequestMaintenance.Validation",
+                    description: " Maintenance reason can't be blank");
+            }
+
+            if (MaintenanceRequested)
+            {
+                return Error.Conflict(
+                    code: "Room.MaintenanceAlreadyRequested",
+                    description: "Maintenance has already been requested for this room.");
+            }
+
+            MaintenanceRequested = true;
+
+            PushEvent(new RoomMaintenanceRequestedDomainEvent(Id, reason, DateTime.UtcNow));
+
+            return Result.Success;
+
+
         }
     }
 }
