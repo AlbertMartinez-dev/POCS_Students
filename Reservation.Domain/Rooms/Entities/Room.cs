@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ErrorOr;
+﻿using ErrorOr;
 using Kernel.Domain.Primitives;
+using Kernel.Domain.Primitives.ActionTracker;
 using Reservation.Domain.Rooms.DomainEvents;
-
 
 namespace Reservation.Domain.Rooms.Entities
 {
     public class Room : Aggregate<RoomId>
     {
+        public const string HistoryTypeSelector = "Reservation.Room";
+
         private readonly List<RoomAmenity> _amenities = new();
 
         public RoomType RoomType { get; private set; }
@@ -20,6 +19,7 @@ namespace Reservation.Domain.Rooms.Entities
 
         public string? MaintenanceReason { get; private set; }
 
+        public Guid? HistoryActionId { get; private set; }
 
         public IReadOnlyCollection<RoomAmenity> Amenities => _amenities.AsReadOnly();
 
@@ -27,17 +27,64 @@ namespace Reservation.Domain.Rooms.Entities
         {
         }
 
-        internal Room(
+        private Room(
             RoomId id,
             RoomType roomType,
-            FloorNumber floorNumber)
+            FloorNumber floorNumber,
+            Guid? historyActionId = null)
             : base(id)
         {
             RoomType = roomType;
             FloorNumber = floorNumber;
+            HistoryActionId = historyActionId ?? Guid.NewGuid();
+            
         }
 
-        
+        public static ErrorOr<Room> Create(
+            RoomId id,
+            string? roomType,
+            int? floorNumber,
+            Guid? historyActionId = null
+            )
+            
+        {
+            var errors = new List<Error>();
+
+            var roomTypeResult = RoomType.Create(roomType);
+
+            if (roomTypeResult.IsError)
+            {
+                errors.AddRange(roomTypeResult.Errors);
+            }
+
+            var floorNumberResult = FloorNumber.Create(floorNumber);
+
+            if (floorNumberResult.IsError)
+            {
+                errors.AddRange(floorNumberResult.Errors);
+            }
+
+            if (errors.Count > 0)
+            {
+                return errors;
+            }
+
+            var room = new Room(
+                id,
+                roomTypeResult.Value,
+                floorNumberResult.Value
+                
+            );
+
+
+            room.AddAction(new ParentActionTracker(
+            HistoryTypeSelector,
+            RoomActionTracker.RoomCreated,
+            historyId: room.HistoryActionId,
+            room));
+
+            return room;
+        }
 
         public ErrorOr<Success> AddAmenity(RoomAmenityId amenityId, string? name)
         {
@@ -72,20 +119,29 @@ namespace Reservation.Domain.Rooms.Entities
 
             _amenities.Add(amenity);
 
+
+
+
+            AddAction(new ChildActionTracker(
+                HistoryTypeSelector,
+                RoomActionTracker.RoomAmenityAdded,
+                parentHistoryId: HistoryActionId,
+                entity: this));
+
+
+
+
+
             return Result.Success;
         }
 
-
-
         public ErrorOr<Success> RequestMaintenance(string? reason)
         {
-            
-
-            if (string.IsNullOrEmpty(reason)){
-
+            if (string.IsNullOrWhiteSpace(reason))
+            {
                 return Error.Validation(
                     code: "RequestMaintenance.Validation",
-                    description: " Maintenance reason can't be blank");
+                    description: "Maintenance reason can't be blank");
             }
 
             if (MaintenanceRequested)
@@ -95,14 +151,27 @@ namespace Reservation.Domain.Rooms.Entities
                     description: "Maintenance has already been requested for this room.");
             }
 
-            MaintenanceRequested = true;
+            var normalizedReason = reason.Trim();
 
-            PushEvent(new RoomMaintenanceRequestedDomainEvent(Id, reason, DateTime.UtcNow));
+            MaintenanceRequested = true;
+            MaintenanceReason = normalizedReason;
+
+            PushEvent(new RoomMaintenanceRequestedDomainEvent(
+                Id,
+                normalizedReason,
+                DateTime.UtcNow
+            ));
+
+
+            AddAction(new ChildActionTracker(
+                HistoryTypeSelector,
+                RoomActionTracker.RoomMaintenanceRequested,
+                parentHistoryId: HistoryActionId,
+                entity: this));
+
+
 
             return Result.Success;
-
-
         }
     }
 }
-

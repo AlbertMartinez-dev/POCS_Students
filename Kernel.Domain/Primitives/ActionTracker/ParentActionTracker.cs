@@ -15,7 +15,7 @@ namespace Kernel.Domain.Primitives.ActionTracker
 
         public Guid? HistoryId { get;  }
 
-        private readonly IEntity _entity;
+        public IEntity Entity { get; }
 
 
 
@@ -31,7 +31,7 @@ namespace Kernel.Domain.Primitives.ActionTracker
             Type = type;
             Domain = domain;
             HistoryId = historyId;
-            _entity = entity;
+            Entity = entity;
             CreatedOn = DateTime.UtcNow;
         }
 

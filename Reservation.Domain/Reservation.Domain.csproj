@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Kernel.Domain\Kernel.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Reservation\DomainEvents\" />
+  </ItemGroup>
+
 </Project>
