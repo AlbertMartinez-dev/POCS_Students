@@ -5,5 +5,10 @@ using Kernel.Domain.Primitives;
 
 namespace Reservation.Domain.Reservation.Entities
 {
+
+
+
+
+
    
 }

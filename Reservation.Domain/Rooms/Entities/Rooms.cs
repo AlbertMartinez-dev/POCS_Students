@@ -5,7 +5,7 @@ using Reservation.Domain.Rooms.DomainEvents;
 
 namespace Reservation.Domain.Rooms.Entities
 {
-    public class Room : Aggregate<RoomId>
+    public class Rooms : Aggregate<RoomId>
     {
         public const string HistoryTypeSelector = "Reservation.Room";
 
@@ -13,52 +13,60 @@ namespace Reservation.Domain.Rooms.Entities
 
         public RoomType RoomType { get; private set; }
 
+            
+
         public FloorNumber FloorNumber { get; private set; }
+
+        public int RoomNumber { get; private set; }
+        
+      
 
         public bool MaintenanceRequested { get; private set; }
 
         public string? MaintenanceReason { get; private set; }
 
+
         public Guid? HistoryActionId { get; private set; }
 
         public IReadOnlyCollection<RoomAmenity> Amenities => _amenities.AsReadOnly();
 
-        protected Room()
+        protected Rooms()
         {
         }
 
-        private Room(
+        private Rooms(
             RoomId id,
+            int roomNumber,
             RoomType roomType,
             FloorNumber floorNumber,
             Guid? historyActionId = null)
             : base(id)
         {
             RoomType = roomType;
+            RoomNumber = roomNumber;
             FloorNumber = floorNumber;
             HistoryActionId = historyActionId ?? Guid.NewGuid();
             
         }
 
-        public static ErrorOr<Room> Create(
+
+        public static ErrorOr<Rooms> Create(
             RoomId id,
             string? roomType,
             int? floorNumber,
+            int roomNumber,
             Guid? historyActionId = null
-            )
-            
+        )
         {
             var errors = new List<Error>();
 
             var roomTypeResult = RoomType.Create(roomType);
-
             if (roomTypeResult.IsError)
             {
                 errors.AddRange(roomTypeResult.Errors);
             }
 
             var floorNumberResult = FloorNumber.Create(floorNumber);
-
             if (floorNumberResult.IsError)
             {
                 errors.AddRange(floorNumberResult.Errors);
@@ -69,22 +77,23 @@ namespace Reservation.Domain.Rooms.Entities
                 return errors;
             }
 
-            var room = new Room(
+            var room = new Rooms(
                 id,
+                roomNumber,
                 roomTypeResult.Value,
-                floorNumberResult.Value
-                
+                floorNumberResult.Value,
+                historyActionId
             );
 
-
             room.AddAction(new ParentActionTracker(
-            HistoryTypeSelector,
-            RoomActionTracker.RoomCreated,
-            historyId: room.HistoryActionId,
-            room));
+                HistoryTypeSelector,
+                RoomActionTracker.RoomCreated,
+                historyId: room.HistoryActionId,
+                room));
 
             return room;
         }
+
 
         public ErrorOr<Success> AddAmenity(RoomAmenityId amenityId, string? name)
         {

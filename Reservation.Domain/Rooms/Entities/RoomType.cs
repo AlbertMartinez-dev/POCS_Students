@@ -14,16 +14,19 @@ namespace Reservation.Domain.Rooms.Entities
         
 
         public string Value { get; }
+        public string Description { get; }
 
 
-        private RoomType(string value)
+        private RoomType(string value, string description)
         {
             Value = value;
+            Description = description;
+         
         }
 
 
         // ErrorOr per si no s'insereix la habitació adequada
-        public static ErrorOr<RoomType> Create(string value)
+        public static ErrorOr<RoomType> Create(string value, string description)
         {
 
           
@@ -52,7 +55,7 @@ namespace Reservation.Domain.Rooms.Entities
 
 
 
-            return new RoomType(NormalizedValue);
+            return new RoomType(NormalizedValue, description);
 
         }
 
