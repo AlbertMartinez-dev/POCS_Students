@@ -22,7 +22,7 @@ namespace VipManagement.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("GetCards")]
         public async Task<IActionResult> Get()
         {
             var cards = await _context.Cards.ToListAsync();
@@ -30,7 +30,14 @@ namespace VipManagement.API.Controllers
         }
 
 
-       
+        [HttpGet("GetCards")]
+        public async Task<IActionResult> Get()
+        {
+            var cards = await _context.Cards.ToListAsync();
+            return Ok(cards);
+        }
+
+
 
         [HttpPost("createCard")]
         public async Task<IActionResult> Create([FromBody] CreateCardInputDto dto)

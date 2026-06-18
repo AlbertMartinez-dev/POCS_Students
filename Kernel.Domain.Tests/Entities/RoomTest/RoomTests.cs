@@ -17,7 +17,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
 
         public void Create_WithValidData_AddsParentActionTrackerToActionsCollection()
         {
-            var roomResult = Rooms.Create(new RoomId(1), "STANDARD", 3);
+            var roomResult = Room.Create(new RoomId(1), "STANDARD", 3);
 
             // per assegurar que el test no continua amb una room invalida
             roomResult.IsError.Should().BeFalse();
@@ -30,7 +30,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
 
             var parentAction = actions.OfType<ParentActionTracker>().Single();
 
-            parentAction.Type.Should().Be(Rooms.HistoryTypeSelector);
+            parentAction.Type.Should().Be(Room.HistoryTypeSelector);
             parentAction.Domain.Should().Be(RoomActionTracker.RoomCreated);
             parentAction.HistoryId.Should().NotBeNull();
             parentAction.Entity.Should().Be(room);
@@ -43,7 +43,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
 
         {
 
-            var roomResult = Rooms.Create(new RoomId(1), "STANDARD", 3);
+            var roomResult = Room.Create(new RoomId(1), "STANDARD", 3);
 
             // per assegurar que el test no continua amb una room invalida
             roomResult.IsError.Should().BeFalse();
@@ -64,7 +64,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
 
             var childAction = actions.OfType<ChildActionTracker>().Single();
 
-            childAction.Type.Should().Be(Rooms.HistoryTypeSelector);
+            childAction.Type.Should().Be(Room.HistoryTypeSelector);
             childAction.Domain.Should().Be(RoomActionTracker.RoomAmenityAdded);
             childAction.ParentHistoryId.Should().Be((Guid)room.HistoryActionId);
 
@@ -73,7 +73,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
         [Fact]
         public void GetActions_WithMultipleOperations_ReturnsCorrectCount()
         {
-            var roomResult = Rooms.Create(new RoomId(1), "STANDARD", 3);
+            var roomResult = Room.Create(new RoomId(1), "STANDARD", 3);
 
             // per assegurar que el test no continua amb una room invalida
             roomResult.IsError.Should().BeFalse();
@@ -104,7 +104,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
         {
 
             // Arrange / Act
-            var roomResult = Rooms.Create(new RoomId(1), "STANDARD", 3);
+            var roomResult = Room.Create(new RoomId(1), "STANDARD", 3);
 
             // Assert
             roomResult.IsError.Should().BeFalse();
@@ -135,7 +135,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
 
 
             // arrange --> preparar dades
-            var roomResult = Rooms.Create(new RoomId(1), "STANDARD", 3);
+            var roomResult = Room.Create(new RoomId(1), "STANDARD", 3);
 
             // per assegurar que el test no continua amb una room invalida
             roomResult.IsError.Should().BeFalse();
@@ -170,7 +170,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
         {
 
             // arrange 
-            var roomResult = Rooms.Create(new RoomId(1), "STANDARD", 3);
+            var roomResult = Room.Create(new RoomId(1), "STANDARD", 3);
 
             // per assegurar que el test no continua amb una room invalida
             roomResult.IsError.Should().BeFalse();
@@ -195,7 +195,7 @@ namespace Kernel.Domain.Tests.Entities.RoomTest
         public void RequestMaintenance_WithEmptyReason_ShouldReturnValidationError()
         {
             // arrange 
-            var roomResult = Rooms.Create(new RoomId(1), "STANDARD", 3);
+            var roomResult = Room.Create(new RoomId(1), "STANDARD", 3);
 
             // per assegurar que el test no continua amb una room invalida
             roomResult.IsError.Should().BeFalse();

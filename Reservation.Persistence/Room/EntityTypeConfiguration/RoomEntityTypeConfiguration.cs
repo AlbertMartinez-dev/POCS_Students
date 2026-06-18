@@ -7,9 +7,9 @@ using Reservation.Domain.Rooms.Entities;
 
 namespace Reservation.Persistence.Room.EntityTypeConfiguration
 {
-    public class RoomEntityTypeConfiguration : IEntityTypeConfiguration<Rooms>
+    public class RoomEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Rooms.Entities.Room>
     {
-        public void Configure(EntityTypeBuilder<Rooms> builder)
+        public void Configure(EntityTypeBuilder<Domain.Rooms.Entities.Room> builder)
         {
 
             builder.ToTable("Rooms", "Reservation");

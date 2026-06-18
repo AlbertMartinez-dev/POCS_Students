@@ -5,7 +5,7 @@ using Reservation.Domain.Rooms.DomainEvents;
 
 namespace Reservation.Domain.Rooms.Entities
 {
-    public class Rooms : Aggregate<RoomId>
+    public class Room : Aggregate<RoomId>
     {
         public const string HistoryTypeSelector = "Reservation.Room";
 
@@ -30,11 +30,11 @@ namespace Reservation.Domain.Rooms.Entities
 
         public IReadOnlyCollection<RoomAmenity> Amenities => _amenities.AsReadOnly();
 
-        protected Rooms()
+        protected Room()
         {
         }
 
-        private Rooms(
+        private Room(
             RoomId id,
             int roomNumber,
             RoomType roomType,
@@ -50,7 +50,7 @@ namespace Reservation.Domain.Rooms.Entities
         }
 
 
-        public static ErrorOr<Rooms> Create(
+        public static ErrorOr<Room> Create(
             RoomId id,
             string? roomType,
             int? floorNumber,
@@ -77,7 +77,7 @@ namespace Reservation.Domain.Rooms.Entities
                 return errors;
             }
 
-            var room = new Rooms(
+            var room = new Room(
                 id,
                 roomNumber,
                 roomTypeResult.Value,
