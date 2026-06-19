@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ErrorOr" Version="2.1.1" />
-    <PackageReference Include="MediatR" Version="14.1.0" />
+    <Folder Include="Members\DomainEvents\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\History.Persistance\History.Persistence.csproj" />
-    <ProjectReference Include="..\VipManagement.Persistence\VipManagement.Persistence.csproj" />
+    <PackageReference Include="ErrorOr" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kernel.Domain\Kernel.Domain.csproj" />
   </ItemGroup>
 
 </Project>

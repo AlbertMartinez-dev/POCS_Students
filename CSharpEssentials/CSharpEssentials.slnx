@@ -20,6 +20,12 @@
     <Project Path="../Reservation.Domain/Reservation.Domain.csproj" Id="93ff2a3a-e291-43c3-bc7b-03c1a9eebdf4" />
     <Project Path="../Reservation.Persistence/Reservation.Persistence.csproj" Id="583def32-a50d-491b-8260-b037e1c6ae28" />
   </Folder>
+  <Folder Name="/05_DomainLayer_Albert/03-Membership/">
+    <Project Path="../Membership.API/Membership.API.csproj" Id="21384056-dcc4-48de-8ec6-2d9e3befe154" />
+    <Project Path="../Membership.Application/Membership.Application.csproj" Id="95a9173a-2058-4da6-b418-1f6bd16e21b2" />
+    <Project Path="../Membership.Domain/Membership.Domain.csproj" Id="5164422a-83ed-4347-ba38-77f310c4b21b" />
+    <Project Path="../Membership.Persistence/Membership.Persistence.csproj" Id="8e3efc1f-cef7-47a9-ad3b-2df27e36912f" />
+  </Folder>
   <Folder Name="/05_DomainLayer_Albert/10-History/">
     <Project Path="../History.API/History.API.csproj" Id="bfe8046a-7574-4e57-994b-81fb6bfc61bc" />
     <Project Path="../History.Application/History.Application.csproj" Id="2d59f3e4-f89a-49f5-baab-29ffd5525f94" />

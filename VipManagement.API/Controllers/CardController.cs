@@ -4,6 +4,7 @@ using VipManagement.Domain.Cards.Entities;
 using VipManagement.Persistence;
 using VipManagement.Application.Cards.DTOs;
 using VipManagement.Application.Cards.Commands;
+using VipManagement.Application.Cards.Queries;
 using MediatR;
 using ErrorOr;
 using Microsoft.IdentityModel.Tokens.Experimental;
@@ -26,16 +27,20 @@ namespace VipManagement.API.Controllers
         public async Task<IActionResult> Get()
         {
             var cards = await _context.Cards.ToListAsync();
-            return Ok(cards);
+            return Ok(cards);   
         }
 
 
-        [HttpGet("GetCards")]
-        public async Task<IActionResult> Get()
+        [HttpGet("GetCard")]
+
+        public async Task<IActionResult> GetCard(int id, CancellationToken cancellationToken = default)
         {
-            var cards = await _context.Cards.ToListAsync();
-            return Ok(cards);
+            var query = new GetCardQuery(id);
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return Ok(result);
         }
+
 
 
 
