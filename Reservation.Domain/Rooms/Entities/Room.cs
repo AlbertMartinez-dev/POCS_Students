@@ -19,7 +19,7 @@ namespace Reservation.Domain.Rooms.Entities
 
         public int RoomNumber { get; private set; }
         
-      
+        
 
         public bool MaintenanceRequested { get; private set; }
 
@@ -35,12 +35,12 @@ namespace Reservation.Domain.Rooms.Entities
         }
 
         private Room(
-            RoomId id,
+           
             int roomNumber,
             RoomType roomType,
             FloorNumber floorNumber,
             Guid? historyActionId = null)
-            : base(id)
+            
         {
             RoomType = roomType;
             RoomNumber = roomNumber;
@@ -50,9 +50,10 @@ namespace Reservation.Domain.Rooms.Entities
         }
 
 
+
         public static ErrorOr<Room> Create(
-            RoomId id,
             string? roomType,
+            string? roomTypeDescription,
             int? floorNumber,
             int roomNumber,
             Guid? historyActionId = null
@@ -60,13 +61,18 @@ namespace Reservation.Domain.Rooms.Entities
         {
             var errors = new List<Error>();
 
-            var roomTypeResult = RoomType.Create(roomType);
+            var roomTypeResult = RoomType.Create(
+                roomType,
+                roomTypeDescription ?? string.Empty
+            );
+
             if (roomTypeResult.IsError)
             {
                 errors.AddRange(roomTypeResult.Errors);
             }
 
             var floorNumberResult = FloorNumber.Create(floorNumber);
+
             if (floorNumberResult.IsError)
             {
                 errors.AddRange(floorNumberResult.Errors);
@@ -78,7 +84,6 @@ namespace Reservation.Domain.Rooms.Entities
             }
 
             var room = new Room(
-                id,
                 roomNumber,
                 roomTypeResult.Value,
                 floorNumberResult.Value,
@@ -93,6 +98,7 @@ namespace Reservation.Domain.Rooms.Entities
 
             return room;
         }
+
 
 
         public ErrorOr<Success> AddAmenity(RoomAmenityId amenityId, string? name)

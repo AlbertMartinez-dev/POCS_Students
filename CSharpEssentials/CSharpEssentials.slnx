@@ -6,7 +6,9 @@
   </Folder>
   <Folder Name="/05_DomainLayer_Albert/" />
   <Folder Name="/05_DomainLayer_Albert/00-Kernel/">
+    <Project Path="../Kernel.Application/Kernel.Application.csproj" Id="ad92b630-e770-4e54-a20f-54320e21d83b" />
     <Project Path="../Kernel.Domain/Kernel.Domain.csproj" Id="a60add13-d94c-490b-80e4-af8b84f1fa86" />
+    <Project Path="../Kernel.Persistence/Kernel.Persistence.csproj" Id="8f3ee404-f6ad-4957-8a2e-dca8ab81890d" />
   </Folder>
   <Folder Name="/05_DomainLayer_Albert/01-VipManagement/">
     <Project Path="../VipManagement.API/VipManagement.API.csproj" Id="43d6b2ba-6174-4f7f-9f4c-e3e36804b4be" />

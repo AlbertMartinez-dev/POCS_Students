@@ -12,7 +12,7 @@ namespace Membership.Domain.Members.Entities
         public const int lastNameMaxChars = 50;
         public const int middleNameMaxLength = 50;
        
-        
+            
 
 
 

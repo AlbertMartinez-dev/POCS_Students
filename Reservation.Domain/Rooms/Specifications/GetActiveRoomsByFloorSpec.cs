@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-public class GetActiveRoomsByFloorSpec : Specification2<Room, RoomId>
+public class GetActiveRoomsByFloorSpec 
 {
     public GetActiveRoomsByFloorSpec(int floorNumber, bool includeAmenities)
     {

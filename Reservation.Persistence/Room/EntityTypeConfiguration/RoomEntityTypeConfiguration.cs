@@ -12,7 +12,7 @@ namespace Reservation.Persistence.Room.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Domain.Rooms.Entities.Room> builder)
         {
 
-            builder.ToTable("Rooms", "Reservation");
+            builder.ToTable("Rooms", "RESERVATION");
 
             builder.HasKey(x => x.Id);
 
@@ -66,6 +66,16 @@ namespace Reservation.Persistence.Room.EntityTypeConfiguration
             builder.Property<bool>("IsDeleted")
                 .HasDefaultValue(false)
                 .IsRequired();
+
+
+            builder.Property(r => r.MaintenanceRequested)
+                .HasColumnName("MaintenanceRequested")
+                .IsRequired();
+
+            builder.Property(r => r.MaintenanceReason)
+                .HasColumnName("MaintenanceReason")
+                .HasMaxLength(500);
+
 
             builder.Property<int>("CreatedById")
                 .IsRequired();

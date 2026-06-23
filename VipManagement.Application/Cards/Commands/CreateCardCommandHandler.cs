@@ -18,7 +18,7 @@ namespace VipManagement.Application.Cards.Commands
 
         public CreateCardCommandHandler(
             VipManagementDbContext context,
-            HistoryDbContext historyContext,
+            HistoryDbContext historyContext,    
             IMediator mediator)
         {
             _context = context;
@@ -81,7 +81,7 @@ namespace VipManagement.Application.Cards.Commands
 
             await _context.SaveChangesAsync(cancellationToken);
             await _historyContext.SaveChangesAsync(cancellationToken);
-
+                
             await _mediator.Publish(
                 new CardCreatedDomainEvent(card.Id),
                 cancellationToken
