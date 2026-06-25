@@ -14,15 +14,15 @@ namespace Reservation.Domain.Rooms.Entities
             Name = string.Empty;
         }
 
-        private RoomAmenity(RoomAmenityId id, string name)
-            : base(id)
+        private RoomAmenity( string name)
+            
         {
             Name = name;
         }
 
         public string Name { get; private set; }
 
-        public static ErrorOr<RoomAmenity> Create(RoomAmenityId id, string? name)
+        public static ErrorOr<RoomAmenity> Create(string? name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -33,7 +33,7 @@ namespace Reservation.Domain.Rooms.Entities
 
             var normalizedName = name.Trim();
 
-            return new RoomAmenity(id, normalizedName);
+            return new RoomAmenity(normalizedName);
         }
     }
 }

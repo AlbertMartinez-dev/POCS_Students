@@ -101,9 +101,10 @@ namespace Reservation.Domain.Rooms.Entities
 
 
 
-        public ErrorOr<Success> AddAmenity(RoomAmenityId amenityId, string? name)
+        public ErrorOr<Success> AddAmenity(
+            string? name)
         {
-            var amenityResult = RoomAmenity.Create(amenityId, name);
+            var amenityResult = RoomAmenity.Create(name);
 
             if (amenityResult.IsError)
             {
